@@ -1,24 +1,34 @@
 package listeners;
 
 import org.testng.Assert;
-import org.testng.SkipException;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 @Listeners(listeners.TestNGListeners.class)
-public class TestListenersDemo {
-    @Test
-    public void test1(){
-        System.out.println("I am Inside test 1");
+public class TestListenersDemo extends Base {
+
+    @BeforeMethod
+    public void setUp(){
+        initialization();
     }
+
     @Test
-    public void test2(){
-        System.out.println("I am Inside test 2");
-        Assert.assertTrue(false);
+    public void test() {
+        test1();
+        test2();
+        test3();
     }
-    @Test
-    public void test3(){
-        System.out.println("I am Inside test 3");
-        throw new SkipException("This test is skipped");
+
+        @Test
+    public void takeScreeshot(){
+            Assert.assertEquals(false, true);
+    }
+
+    @AfterMethod
+    public void tearDown() throws InterruptedException {
+        Thread.sleep(1000);
+        driver.close();
     }
 }
